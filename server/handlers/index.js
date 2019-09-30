@@ -1,4 +1,5 @@
-module.exports={...require('./auth')};
+module.exports={...require('./auth'), ...require('./poll.js')};
+
 
 module.exports.notFound=(req,res,next)=>{
     const err=new Error('Not Found');
