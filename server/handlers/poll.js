@@ -1,7 +1,9 @@
 const db=require('../models');
 
 exports.showPoll = async (req,res,next) =>{
+       
     try{
+         console.log("asdasds");
            const polls=await db.Poll.find().populate('user',['username','id']);
            res.status(200).json(polls);
     }
@@ -93,8 +95,8 @@ exports.vote=async (req,res,next) =>{
                      {
                        return {
                               option:option.option,
-                              _id=option._id,
-                            votes=option.votes+1
+                              _id:option._id,
+                            votes:option.votes+1
                        };
                      }
                      else{
