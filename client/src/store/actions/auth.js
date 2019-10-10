@@ -30,8 +30,8 @@ export const authUser = (path,data) => {
           dispatch(removeError( ));
         } 
         catch(err){
-            err = err.dispatch.data;
-            dispatch(addError(err));
+         const error = err.response.data;
+           dispatch(addError(error));
         }
     }
 } 
