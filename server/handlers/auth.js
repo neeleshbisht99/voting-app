@@ -20,6 +20,7 @@ exports.register=async (req,res,next)=>{
 }
 exports.login=async (req,res,next)=>{
     try{
+       // console.log(req.body);
         const user=await db.User.findOne({username:req.body.username});
         const {id,username}=user;
         const valid= user.comparePasswords(req.body.password);  

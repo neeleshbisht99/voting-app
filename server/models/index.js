@@ -5,7 +5,7 @@ mongoose.connect('mongodb://localhost/vote', {
     useNewUrlParser: true,
     useUnifiedTopology: true},
      (err, client) => { if (err) {
-    console.error(err)
+    console.log(err)
     return
   }})
 

@@ -3,7 +3,7 @@ const db=require('../models');
 exports.showPoll = async (req,res,next) =>{
        
     try{
-         console.log("asdasds");
+
            const polls=await db.Poll.find().populate('user',['username','id']);
            res.status(200).json(polls);
     }
