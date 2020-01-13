@@ -8,6 +8,8 @@ import ErrorMessage from '../components/ErrorMessage';
 import {BrowserRouter as Router} from 'react-router-dom';
 import RouteViews from './RouteViews';
 import Navbar from './Navbar';
+import TestPage from '../pages/TestPage';
+
 
 if (localStorage.jwtToken) {
     setToken(localStorage.jwtToken);

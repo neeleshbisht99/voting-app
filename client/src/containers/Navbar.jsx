@@ -7,6 +7,8 @@ const Navbar = ({auth,logOut}) =>(
         <ul>
        <li><Link to="/register">Register</Link></li>
        <li><Link to="/login">Login</Link></li>
+       <li><Link to="/">Home</Link></li>
+       <li><Link to="/test">Test</Link></li>
        <li><a onClick={logOut}>logout</a></li>
         </ul>
         {auth.isAuthenticated && (<p>Logged in as {auth.user.username}</p>)}

@@ -14,20 +14,20 @@ export const setCurrentPolls = poll =>({
 export const getPolls = () => {
     return async dispatch => {
         try {
-            const polls = await api.call('get','polls');
+            const polls = await api.call('get','poll');
             dispatch(setPolls(polls));
             dispatch(removeError());
         }
         catch(err){
-             const error = err.response.data;
-             dispatch(addError(error.message));
+            console.log(err);
         }
     }
 }
 export const getUserPolls = () =>{
     return async dispatch => {
-        try{
-           const polls=await api.call('get','polls/user')
+        try{    
+           const polls=await api.call('get','poll/user')
+           console.log("second");
            dispatch(setPolls(polls));
            dispatch(removeError());
         }
@@ -42,7 +42,9 @@ export const getUserPolls = () =>{
 export const createPoll = data =>{
     return async dispatch => {
         try{
-            const polls=await api.call('post','polls',data);
+            console.log("reached in actions");
+            const polls=await api.call('post','poll',data);
+            console.log("dine");
             dispatch(setCurrentPolls(polls));
             dispatch(removeError());
         } 
@@ -55,10 +57,10 @@ export const createPoll = data =>{
 };
 
 
-export const getCurrentPoll = path =>{
+export const getCurrentPoll = path => {
     return async dispatch => {
         try{
-             const poll = await api.call('get',`polls/${path}`);
+             const poll = await api.call('get',`poll/${path}`);
              dispatch(setCurrentPolls(poll));
              dispatch(removeError()); 
         }
@@ -71,15 +73,16 @@ export const getCurrentPoll = path =>{
 }
 export const vote = (path,data) =>{
     return async dispatch => {
-        try{
-             const poll = await api.call('post',`polls/${path}`,data);
+        try{  
+             const poll = await api.call('post',`poll/${path}`,data);
              dispatch(setCurrentPolls(poll));
              dispatch(removeError()); 
         }
         catch(err)
         {
+            // console.log("oho",err.response.data.err);
             const error = err.response.data;
-            dispatch(addError(error.message));
+            dispatch(addError(error.err));
         }
     }
 }

@@ -3,7 +3,7 @@ import React, {Fragment} from 'react';
 
  const ErrorMessage = ( {error}) => (<Fragment>
      {
-         error.message && <div> {error.message.err}</div>
+         error ? <div> {error.message}</div> : ""
      }
  </Fragment>);
 
