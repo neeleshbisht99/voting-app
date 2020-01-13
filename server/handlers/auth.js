@@ -6,7 +6,7 @@ exports.register=async (req,res,next)=>{
     try{
          const user=await db.User.create(req.body)
          const {id,username}=user;
-         const token=jwt.sign({id,username},process.env.Secret);
+         const token=jwt.sign({id,username}, new Buffer(process.env.SECRET,'base64'));
          res.status(201).json({id,username,token});
     }
     catch(err){
@@ -20,18 +20,20 @@ exports.register=async (req,res,next)=>{
 }
 exports.login=async (req,res,next)=>{
     try{
-       // console.log(req.body);
+        // console.log("inside login");
         const user=await db.User.findOne({username:req.body.username});
         const {id,username}=user;
         const valid= user.comparePasswords(req.body.password);  
         if(valid) 
         {
-            const token=jwt.sign({id,username},process.env.Secret);
+            // console.log("inside valid login");
+            const token=jwt.sign({id,username},new Buffer(process.env.SECRET,'base64'));
             res.json({
                 id,username,token
             })
         }
         else{
+            // console.log("inside invalid login");
             throw new Error();
         }
 

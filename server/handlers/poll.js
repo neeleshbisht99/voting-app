@@ -3,7 +3,6 @@ const db=require('../models');
 exports.showPoll = async (req,res,next) =>{
        
     try{
-
            const polls=await db.Poll.find().populate('user',['username','id']);
            res.status(200).json(polls);
     }
@@ -34,6 +33,7 @@ exports.createPoll = async (req,res,next) => {
 
 exports.userPolls=async (req,res,next) => {
        try{
+       console.log("asd");
           const {id} =req.decoded;
           const user=await db.User.findById(id).populate('polls');
        res.status(201).json(user.polls);
@@ -53,7 +53,7 @@ exports.getPoll=async (req,res,next) => {
        }
        catch(err)
        {
-              err.status(400);
+              // err.status(400);
               next(err);
        }
 }
@@ -83,12 +83,11 @@ exports.vote=async (req,res,next) =>{
        try{
               const {id: pollId}=req.params;
               const {id: userId}=req.decoded;
-
               const {answer}=req.body;
               if(answer)
               {
-                  const poll=await poll.findById(pollId);
-                  if(!poll) throw new Error('no poll foind');
+                  const poll=await db.Poll.findById(pollId);
+                  if(!poll) throw new Error('no poll found');
 
               const vote=poll.options.map(option=>{
                      if(option.option == answer)
@@ -100,18 +99,18 @@ exports.vote=async (req,res,next) =>{
                        };
                      }
                      else{
-                         return answer;
+                         return option;
                      }
               });
-
               if(poll.voted.filter(user => user.toString() === userId).length <=0 )
               {
                      poll.voted.push(userId);
                      poll.options=vote;
                      await poll.save();
-                     res.status(201).json(poll);
+                    return res.status(201).json(poll);
               }
               else{
+                     console.log("already voted");
                      throw new Error ("Already voted");
               }
               }
