@@ -15,7 +15,7 @@ class Polls extends Component {
     //   const {getCurrentPoll} = this.props;
     //   getCurrentPoll(id);
      const {history}= this.props ;
-     history.push(`/poll/${id}`);  
+     this.props.history.push(`/poll/${id}`);  
 }
     render(){
         const {auth,getPolls,getUserPolls} = this.props;
